@@ -5,9 +5,15 @@ import 'package:weather_app/global/cubits/get_weather_cubit/get_weather_cubit.da
 import 'package:weather_app/global/helper/helpers.dart';
 import 'package:weather_app/global/widgets/custom_button.dart';
 
-class CustomAlertDialog extends StatelessWidget {
+class CustomAlertDialog extends StatefulWidget {
   const CustomAlertDialog({super.key});
 
+  @override
+  State<CustomAlertDialog> createState() => _CustomAlertDialogState();
+}
+
+class _CustomAlertDialogState extends State<CustomAlertDialog> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -30,9 +36,15 @@ class CustomAlertDialog extends StatelessWidget {
                     textColor: Colors.white,
                     backColor: const Color.fromARGB(255, 93, 66, 146),
                     onTap: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
                       String? countryName =
                           await LocationService().getCountryName();
                       defaultCountry = countryName;
+                      setState(() {
+                        isLoading = false;
+                      });
                       if (countryName != null) {
                         BlocProvider.of<GetWeatherCubit>(
                           context,
@@ -40,6 +52,7 @@ class CustomAlertDialog extends StatelessWidget {
                         Navigator.pop(context);
                       }
                     },
+                    isLoading: isLoading,
                   ),
                 ),
                 Expanded(

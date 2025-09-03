@@ -4,33 +4,33 @@ import 'package:geocoding/geocoding.dart';
 
 class LocationService {
   Future<String?> getCountryName() async {
-    var status = await Permission.location.request();
+    try {
+      var status = await Permission.location.request();
 
-    if (status.isGranted) {
-      Position position = await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.high,
-        ),
-      );
+      if (status.isGranted) {
+        // Use low accuracy for faster results and add timeout
+        Position position = await Geolocator.getCurrentPosition(
+          locationSettings: const LocationSettings(
+            accuracy: LocationAccuracy.low,
+          ),
+        ).timeout(const Duration(seconds: 8));
 
-      // Convert coordinates to address
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude,
-        position.longitude,
-      );
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+          position.latitude,
+          position.longitude,
+        ).timeout(const Duration(seconds: 5));
 
-      if (placemarks.isNotEmpty) {
-        return placemarks.first.country; // Country name
+        if (placemarks.isNotEmpty) {
+          return placemarks.first.country;
+        }
+      } else if (status.isPermanentlyDenied) {
+        await openAppSettings();
       }
-    } else if (status.isDenied) {
-      // Permission denied once
+
       return null;
-    } else if (status.isPermanentlyDenied) {
-      // User denied forever → open app settings
-      await openAppSettings();
+    } catch (e) {
+      // Return null if anything fails (timeout, network, etc.)
       return null;
     }
-
-    return null;
   }
 }
