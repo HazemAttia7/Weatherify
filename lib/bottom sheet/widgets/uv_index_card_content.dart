@@ -15,7 +15,7 @@ class UVIndexCardContent extends StatelessWidget {
           image: "assets/images/sun.png",
           leadingText: "UV INDEX",
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         Text(
           "$uvIndex",
           style: const TextStyle(
@@ -24,6 +24,7 @@ class UVIndexCardContent extends StatelessWidget {
             height: 1.0,
           ),
         ),
+        const SizedBox(height: 10),
         Text(
           getUvCategory(uvIndex.round()),
           style: const TextStyle(
@@ -33,7 +34,7 @@ class UVIndexCardContent extends StatelessWidget {
             height: 1.0,
           ),
         ),
-        const SizedBox(height: 25),
+        const SizedBox(height: 35),
         ProgressBar(progress: (uvIndex - 1) / 10),
       ],
     );
