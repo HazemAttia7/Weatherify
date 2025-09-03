@@ -9,7 +9,7 @@ import 'package:weather_app/services/weather_service.dart';
 part 'get_weather_cubit_state.dart';
 
 class GetWeatherCubit extends Cubit<WeatherState> {
-  GetWeatherCubit() : super(WeatherLoadingState());
+  GetWeatherCubit() : super(NoWeatherState());
   late CurrentWeatherModel currentWeatherModel;
 
   void setWeather(CurrentWeatherModel model) {

@@ -21,7 +21,18 @@ class HomeMainContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GetWeatherCubit, WeatherState>(
       builder: (context, state) {
-        if (state is WeatherLoadedState) {
+        if (state is NoWeatherState) {
+          return const Padding(
+            padding:  EdgeInsets.only(bottom: 400.0, right: 80, left: 80),
+            child: Center(
+              child: Text(
+                textAlign: TextAlign.center,
+                "Select a city to show weather",
+                style: TextStyle(color: Colors.white, fontSize: 28),
+              ),
+            ),
+          );
+        } else if (state is WeatherLoadedState) {
           return HomeViewBody(
             sheetProgress: _sheetProgress,
             currentWeatherModel:

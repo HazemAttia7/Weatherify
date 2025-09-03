@@ -32,32 +32,42 @@ class BottomSheetContent extends StatelessWidget {
               child: LittleGrabberHandle(),
             ),
             const SizedBox(height: 10),
-            ForecastHeader(pageController: pageController),
-            const Divider(color: Colors.white38, thickness: 1),
+
             BlocBuilder<GetWeatherCubit, WeatherState>(
               builder: (context, state) {
-                if (state is WeatherLoadedState) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 32.0),
-                    child: Column(
-                      children: [
-                        HourlyWeeklyForecastWidget(
-                          pageController: pageController,
+                if (state is NoWeatherState) {
+                  return SizedBox();
+                } else if (state is WeatherLoadedState) {
+                  return Column(
+                    children: [
+                      ForecastHeader(pageController: pageController),
+                      const Divider(color: Colors.white38, thickness: 1),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 32.0),
+                        child: Column(
+                          children: [
+                            HourlyWeeklyForecastWidget(
+                              pageController: pageController,
+                            ),
+                            SizedBox(height: lerpDouble(75, 10, sheetProgress)),
+                            const Text(
+                              "Weather Details",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 38,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const WeatherDetailsWidget(),
+                          ],
                         ),
-                        SizedBox(height: lerpDouble(75, 10, sheetProgress)),
-                        const Text(
-                          "Weather Details",
-                          style: TextStyle(color: Colors.white, fontSize: 38),
-                        ),
-                        const SizedBox(height: 20),
-                        const WeatherDetailsWidget(),
-                      ],
-                    ),
+                      ),
+                    ],
                   );
                 } else if (state is WeatherLoadingState) {
                   return const Padding(
-                    padding:  EdgeInsets.only(top :24),
-                    child:  CircularProgressIndicator(color: Colors.white),
+                    padding: EdgeInsets.only(top: 24),
+                    child: CircularProgressIndicator(color: Colors.white),
                   );
                 } else {
                   return const Center(
