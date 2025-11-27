@@ -1,3 +1,3 @@
 # Weatherify
 
-- [LinkedIn Project Post](https://www.linkedin.com/posts/abdallah-mahmoud-a492b3257_arvo-my-first-solo-production-level-e-commerce-activity-7270179976486440960-7QLV?utm_source=share&utm_medium=member_desktop) - Full project description and insights
+- [LinkedIn Project Post](https://www.linkedin.com/feed/update/urn:li:activity:7368987414167478272/?originTrackingId=UMyGVQnCTcm9eFcLUQt%2B5A%3D%3D) - Full project description and insights
