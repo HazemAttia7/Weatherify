@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -29,6 +31,7 @@ class LocationService {
 
       return null;
     } catch (e) {
+      log(e.toString());
       // Return null if anything fails (timeout, network, etc.)
       return null;
     }

@@ -36,7 +36,7 @@ class BottomSheetContent extends StatelessWidget {
             BlocBuilder<GetWeatherCubit, WeatherState>(
               builder: (context, state) {
                 if (state is NoWeatherState) {
-                  return SizedBox();
+                  return const SizedBox();
                 } else if (state is WeatherLoadedState) {
                   return Column(
                     children: [

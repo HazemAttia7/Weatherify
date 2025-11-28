@@ -68,7 +68,6 @@ class _HomeView extends State<HomeView> {
             screenHeight: screenHeight,
             imageOpacity: _imageOpacity,
           ),
-
           NotificationListener<DraggableScrollableNotification>(
             onNotification: (notification) {
               final progress =
